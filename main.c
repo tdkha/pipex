@@ -6,23 +6,36 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:06:15 by ktieu             #+#    #+#             */
-/*   Updated: 2024/05/30 16:13:33 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/05 15:20:44 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-int	main(int argc, char	**argv, char **envp)
+int	main(int ac, char	**av, char **envp)
 {
+	t_shell	*shell;
 	pid_t	pid1;
 	int		fd[2];
 
-	// if (argc != 5)
-	// {
-	// 	ft_putstr_fd("Bad arguments\n", 2);
-	// 	exit(EXIT_FAILURE);
-	// }
-	
+	if (ac != 5)
+	{
+		ft_putstr_fd("Bad arguments\n", 2);
+		exit(EXIT_FAILURE);
+	}
+
+
+	shell = shell_init(ac, av, envp);
+
+	int i = 0;
+	printf("Shell: %s\n", shell->cmds[i] ? "yes" : "no");
+	while (shell->cmds[i])
+	{
+		printf("Cmd %d: %s\n", i, shell->cmds[i]->cmd);
+		i++;
+	}
+
+	free_shell(&shell);
 	// if (pipe(fd) == -1)
 	// 	ft_error();
 		
@@ -38,7 +51,7 @@ int	main(int argc, char	**argv, char **envp)
 	// 	print
 	// }
 
-	char	*path;
+	//char	*path;
 	
 	// int i= 0;
 	// while (envp[i] != NULL)

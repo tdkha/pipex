@@ -23,6 +23,9 @@ LIBFT			= ./libft/libft.a
 LIBFT_DIR		=	./libft
 
 SRC_FILES		= 	./srcs/pipex.c \
+					./srcs/error.c \
+					./srcs/parse.c \
+					./srcs/shell.c \
 					./srcs/pipex_utils.c \
 					./main.c
 OBJ_FILES		= $(SRC_FILES:.c=.o)
