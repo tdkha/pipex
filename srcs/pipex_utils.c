@@ -6,52 +6,72 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:06:06 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/05 15:13:48 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/06 11:26:24 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-char	*find_path(char *command, char **envp)
+static char	**find_env_path(char **paths, char **envp)
 {
-	char	**paths;
-	char	*full_path;
-	char	*cmd_full_path;
-	int		i;
+	int	i;
 
 	i = 0;
-	while (ft_strnstr(envp[i], "PATH", 4) == NULL)
+	while (envp[i] && !ft_strnstr(envp[i], "PATH=", 5))
 		i++;
+	if (!envp[i])
+		return (NULL);
 	paths = ft_split(envp[i] + 5, ':');
+	if (!paths)
+		return (NULL);
+	return (paths);
+}
+
+static char	*find_cmd_full_path(
+	char **paths,
+	char *command,
+	char *full_path,
+	char *cmd_full_path
+)
+{
+	int	i;
+
 	i = 0;
-	while(paths[i])
+	while (paths[i])
 	{
-		full_path = ft_strjoin(paths[i],"/");
+		full_path = ft_strjoin(paths[i], "/");
 		cmd_full_path = ft_strjoin(full_path, command);
-		ft_free_set_null(&full_path);
+		if (!full_path || !cmd_full_path)
+		{
+			ft_multiple_free_set_null(paths);
+			return (NULL);
+		}
+		free(full_path);
 		if (access(cmd_full_path, F_OK) == 0)
+		{
+			ft_multiple_free_set_null(paths);
 			return (cmd_full_path);
-		ft_free_set_null(&cmd_full_path);
+		}
+		free(cmd_full_path);
 		i++;
 	}
-	ft_multiple_free_set_null(paths);
 	return (NULL);
 }
 
-void free_shell(t_shell **shell)
+char	*find_path(char *command, char **envp)
 {
-    if (shell && *shell) {
-        if ((*shell)->cmds) {
-            for (int i = 0; i <= (*shell)->cmd_count; i++) {
-                if ((*shell)->cmds[i]) {
-                    free((*shell)->cmds[i]->cmd);
-                    free((*shell)->cmds[i]->path);
-                    free((*shell)->cmds[i]);
-                }
-            }
-            free((*shell)->cmds);
-        }
-        free(*shell);
-        *shell = NULL;
-    }
+	char	**paths;
+	char	*cmd_full_path;
+
+	cmd_full_path = NULL;
+	paths = find_env_path(paths, envp);
+	if (!paths)
+		return (NULL);
+	cmd_full_path = find_cmd_full_path(paths, command, NULL, NULL);
+	if (!cmd_full_path)
+	{
+		ft_multiple_free_set_null(paths);
+		return (NULL);
+	}
+	return (cmd_full_path);
 }

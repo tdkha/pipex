@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:04:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/05 14:43:24 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/06 16:34:21 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,38 @@ typedef enum 	s_error
 	NO_PERMISSION,
 	NO_FILE,
 	FAILED_MALLOC,
+	FAILED_FORK,
+	FAILED_PIPE,
 	CMD_NOT_FOUND
 }	t_error;
 
+typedef enum s_redirect_type
+{
+	NORMAL,
+	IN,
+	OUT,
+	HEREDOC
+}	t_redirect_type;
+
+typedef	struct s_redirect_end
+{
+	char	*name;
+	int		fd;
+}	t_redirect_end;
+
+typedef	struct s_cmd_redirect
+{
+	t_redirect_type		type;
+	t_redirect_end		from;
+	t_redirect_end		to;
+}	t_cmd_redirect;
+
+
 typedef struct	s_cmd
 {
-	char		*cmd;
-	char		*path;
+	char			*cmd;
+	char			*path;
+	t_cmd_redirect	redirect;
 }	t_cmd;
 
 typedef struct s_shell
@@ -43,29 +68,32 @@ typedef struct s_shell
 	char	**av;
 	char	**envp;
 	int		cmd_count;
-	t_cmd	**cmds; // one command on the terminal
+	pid_t	*process_pid;
+	t_cmd	**cmds;
 	int		fd_infile;
 	int		fd_outfile;
 	int		fds[2];
 	t_error	error;
-
 }	t_shell;
 
 
 typedef struct s_cmd_parser
 {
 	char	*cmd;
+	char	*path;
 	int		cmd_found;
 	int 	here_doc;
 	int		in;
 	int		out;
+	char	*redirect_file;
 }	t_cmd_parser;
 
 void	free_shell(t_shell **shell);
 void	print_error(t_error err_code, char *str, t_shell **shell);
+void	print_sys_error(t_error err_code, char *str, t_shell **shell);
 void	parse_cmds(int ac, char **av, char **envp, t_shell **shell);
 char	*find_path(char *command, char **envp);
 t_shell	*shell_init(int ac, char **av, char	**envp);
-t_cmd	*cmd_init(char *cmd, char *path, t_shell **shell);
+t_cmd	*cmd_init(t_cmd_parser *parser, t_shell **shell);
 
 #endif
