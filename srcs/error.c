@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:45:25 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 16:10:49 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/06 17:56:47 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,17 @@ void	print_error(t_error err_code, char *str, t_shell **shell)
 		|| err_code == FAILED_FORK)
 	{
 		perror(str);
+		return ;
 	}
-	else if (err_code == NO_FILE)
+	ft_putstr_fd(str, 2);
+	ft_putstr_fd(": ", 2);
+	if (err_code == NO_FILE_OR_DIRECTORY)
 	{
-		ft_putstr_fd("No such file or directory", 2);
+		ft_putendl_fd(strerror(2), 2);
+	}
+	else if (err_code == NO_PERMISSION)
+	{
+		ft_putendl_fd(strerror(13), 2);
 	}
 	free_shell(shell);
 	exit(EXIT_FAILURE);

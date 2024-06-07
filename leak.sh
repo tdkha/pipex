@@ -1,3 +1,3 @@
 #!/bin/bash
 
-valgrind ./pipex infile "ls -l" "wc -l" outfile
+valgrind  --leak-check=full ./pipex infile "ls -l" "wc -l" outfile

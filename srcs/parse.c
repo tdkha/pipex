@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:00:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 16:47:35 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/06 17:30:16 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,18 @@ static void	parser_scan(int ac, int cmd_index, char **av, t_cmd_parser *parser)
 	}
 }
 
+static void parser_init(t_cmd_parser *parser)
+{
+	parser->cmd = NULL;
+	parser->path = NULL;
+	parser->here_doc = 0;
+	parser->in = 0;
+	parser->out = 0;
+	parser->cmd_found = 0;
+	parser->cmd_parse = 0;
+	parser->redirect_file = NULL;
+}
+
 static void parser_reset(t_cmd_parser *parser)
 {
 	parser->cmd = NULL;
@@ -39,32 +51,41 @@ static void parser_reset(t_cmd_parser *parser)
 	parser->redirect_file = NULL;
 }
 
-void parse_cmds(int ac, char **av, char **envp, t_shell **shell)
+static inline void	parser_set(t_cmd_parser *parser, char **av, char **envp, t_shell **shell)
 {
 	char	**cmds;
+
+	cmds = NULL;
+	if (!parser->cmd)
+		print_sys_error(FAILED_MALLOC, NULL, shell);
+	cmds = ft_split(parser->cmd, ' ');
+	if (!cmds)
+		print_sys_error(FAILED_MALLOC, NULL, shell);
+	parser->path = find_path(cmds[0], envp);
+	if (parser->path)
+	{
+		(*shell)->cmds[parser->cmd_parse] = cmd_init(parser, shell);
+		parser_reset(parser);
+		parser->cmd_parse++;
+		if ((*shell)->cmds[parser->cmd_parse - 1] == NULL)
+			return (free_shell(shell));
+	} 
+	else
+		free(parser->cmd);
+	ft_multiple_free_set_null(cmds);
+}
+
+void	parse_cmds(int ac, char **av, char **envp, t_shell **shell)
+{
+	
 	int		i;
-	int		j = -1;
 	t_cmd_parser parser;
 
-	parser_reset(&parser);
-    for (i = 1; i <= ac - 1; i++) {
-        parser_scan(ac, i, av, &parser);
-        parser.cmd = ft_strtrim(av[i], " ");
-		cmds = ft_split(parser.cmd, ' ');
-		if (!parser.cmd || !cmds)
-			print_sys_error(FAILED_MALLOC, NULL, shell);
-        parser.path = find_path(cmds[0], envp);
-		if (parser.path)
-		{
-			j++;
-			(*shell)->cmds[j] = cmd_init(&parser, shell);
-			parser_reset(&parser);
-			if ((*shell)->cmds[j] == NULL)
-				return (free_shell(shell));
-		} 
-		else
-            free(parser.cmd);
-		ft_multiple_free_set_null(cmds);
-    }
+	parser_init(&parser);
+	for (i = 1; i <= ac - 1; i++) {
+		parser_scan(ac, i, av, &parser);
+		parser.cmd = ft_strtrim(av[i], " ");
+		parser_set(&parser, av, envp, shell);
+	}
 }
 
