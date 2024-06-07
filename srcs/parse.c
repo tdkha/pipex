@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 13:00:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 17:30:16 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/07 14:05:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ static void	parser_scan(int ac, int cmd_index, char **av, t_cmd_parser *parser)
 static void parser_init(t_cmd_parser *parser)
 {
 	parser->cmd = NULL;
+	parser->split_cmd = NULL;
 	parser->path = NULL;
 	parser->here_doc = 0;
 	parser->in = 0;
@@ -43,6 +44,7 @@ static void parser_init(t_cmd_parser *parser)
 static void parser_reset(t_cmd_parser *parser)
 {
 	parser->cmd = NULL;
+	parser->split_cmd = NULL;
 	parser->path = NULL;
 	parser->here_doc = 0;
 	parser->in = 0;
@@ -62,6 +64,7 @@ static inline void	parser_set(t_cmd_parser *parser, char **av, char **envp, t_sh
 	if (!cmds)
 		print_sys_error(FAILED_MALLOC, NULL, shell);
 	parser->path = find_path(cmds[0], envp);
+	parser->split_cmd = cmds;
 	if (parser->path)
 	{
 		(*shell)->cmds[parser->cmd_parse] = cmd_init(parser, shell);
@@ -71,8 +74,10 @@ static inline void	parser_set(t_cmd_parser *parser, char **av, char **envp, t_sh
 			return (free_shell(shell));
 	} 
 	else
+	{
 		free(parser->cmd);
-	ft_multiple_free_set_null(cmds);
+		ft_multiple_free_set_null(cmds);
+	}
 }
 
 void	parse_cmds(int ac, char **av, char **envp, t_shell **shell)

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:45:25 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 17:56:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/07 13:51:58 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,9 @@ void	print_error(t_error err_code, char *str, t_shell **shell)
 {
 	ft_putstr_fd("pipex: ", 2);
 	if (err_code == FAILED_MALLOC
-		|| err_code == FAILED_FORK)
+		|| err_code == FAILED_FORK
+		|| err_code == FAILED_EXECVE
+	)
 	{
 		perror(str);
 		return ;

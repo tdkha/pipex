@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/04 12:35:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 17:22:09 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/07 14:09:52 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ t_cmd	*cmd_init(t_cmd_parser *parser, t_shell **shell)
 	if (!res)
 		print_error(FAILED_MALLOC, NULL, shell);
 	res->cmd = cmd;
+	res->split_cmd = parser->split_cmd;
 	res->path = path;
 	if (parser->here_doc)
 		res->redirect.type = HEREDOC;

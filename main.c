@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:06:15 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 16:52:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/07 14:51:02 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,30 +50,7 @@ int	main(int ac, char	**av, char **envp)
 		printf("\033[0;31mCmd %d\033[0m: %s, \033[0;31mType\033[0m: %s, \033[0;31mFile\033[0m: %s\n", i, shell->cmds[i]->cmd, type, file);
 		i++;
 	}
-
+	shell_execute_cmds(&shell);
 	free_shell(&shell);
-	// if (pipe(fd) == -1)
-	// 	ft_error();
-		
-	// pid1 = fork();
-	// if (pid1 == -1)
-	// 	ft_error();
-		
-	// if (pid1 == 0)
-	// 	child_process(fd, argv, envp);
-	// else
-	// {
-	// 	close(fd[1]);
-	// 	print
-	// }
-
-	//char	*path;
-	
-	// int i= 0;
-	// while (envp[i] != NULL)
-	// {
-	// 	printf("%s\n", envp[i]);
-	// 	i++;
-	// }
 	return (0);
 }

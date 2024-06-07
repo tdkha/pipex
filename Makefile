@@ -27,6 +27,7 @@ SRC_FILES		= 	./srcs/pipex.c \
 					./srcs/parse.c \
 					./srcs/shell.c \
 					./srcs/pipex_utils.c \
+					./srcs/execution.c \
 					./main.c
 OBJ_FILES		= $(SRC_FILES:.c=.o)
 #----------------------------------------------------------------------------

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 12:04:57 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/06 22:23:34 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/07 14:03:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdio.h>
 # include <errno.h>
 # include <err.h>
+#include <string.h>
 
 # define INPUT 0
 # define OUTPUT 1
@@ -34,6 +35,7 @@ typedef enum 	s_error
 	FAILED_MALLOC,
 	FAILED_FORK,
 	FAILED_PIPE,
+	FAILED_EXECVE,
 	CMD_NOT_FOUND
 }	t_error;
 
@@ -62,6 +64,7 @@ typedef	struct s_cmd_redirect
 typedef struct	s_cmd
 {
 	char			*cmd;
+	char			**split_cmd;
 	char			*path;
 	t_cmd_redirect	redirect;
 }	t_cmd;
@@ -84,6 +87,7 @@ typedef struct s_shell
 typedef struct s_cmd_parser
 {
 	char	*cmd;
+	char	**split_cmd;
 	char	*path;
 	int		cmd_found;
 	int		cmd_parse;
@@ -100,5 +104,5 @@ void	parse_cmds(int ac, char **av, char **envp, t_shell **shell);
 char	*find_path(char *command, char **envp);
 t_shell	*shell_init(int ac, char **av, char	**envp);
 t_cmd	*cmd_init(t_cmd_parser *parser, t_shell **shell);
-
+void	shell_execute_cmds(t_shell **shell);
 #endif
