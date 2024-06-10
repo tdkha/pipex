@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:35:53 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 22:12:59 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 09:22:48 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ typedef struct s_shell
 char	*ft_find_path(char *command, t_shell *shell);
 void 	ft_exec(t_shell *shell, char *cmd);
 int		ft_first_child(t_shell *shell);
-int		ft_last_child(t_shell *shell, int *fds);
+int		ft_last_child(t_shell *shell, int *prev_fds);
+void	ft_redirect_close_wait(t_shell *shell, int *pid, int *fds, int current_index);
 void	ft_dup2(
 		int from_fd1,
 		int to_fd1,

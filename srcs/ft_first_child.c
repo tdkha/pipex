@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:42:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 22:03:10 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 09:35:11 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,12 +52,14 @@ int	ft_first_child(t_shell *shell)
 	{
 		close(fds[INPUT]);
 		ft_open_infile(shell, fds);
-		ft_dup2(shell->fd_infile, STDIN_FILENO, fds[OUTPUT], STDOUT_FILENO);
+		ft_dup2(
+			shell->fd_infile, STDIN_FILENO,
+			fds[OUTPUT], STDOUT_FILENO);
 		ft_exec(shell, shell->av[2]);
 	}
 	else
 	{
 		close(fds[OUTPUT]);
-		
+		ft_redirect_close_wait(shell, &pid, fds, i);
 	}
 }

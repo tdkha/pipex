@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:37:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 21:35:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 10:29:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,11 @@ static char	**find_env_path(char **paths, char **envp)
 	while (envp[i] && !ft_strnstr(envp[i], "PATH=", 5))
 		i++;
 	if (!envp[i])
-		return (NULL);
+	{
+		ft_printf_fd(2, "pipex: %s: No such file or directory\n", paths[0]);
+		ft_multiple_free_set_null(&paths);
+		exit (CMD_NOT_FOUND);
+	}
 	paths = ft_split(envp[i] + 5, ':');
 	if (!paths)
 		return (NULL);

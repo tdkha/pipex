@@ -6,11 +6,19 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:36:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 20:59:39 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 10:24:14 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./includes/pipex.h"
+
+static inline void	ft_ret_err(t_shell *shell)
+{
+	int	error;
+
+	error = (shell->error & 0xff00) >> 8;
+	exit (error);
+}
 
 int	main(int ac, char **av, char **envp)
 {
@@ -29,5 +37,6 @@ int	main(int ac, char **av, char **envp)
 	{
 		shell.cmd_count = ac - 2;
 	}
-
+	ft_first_child(&shell);
+	ft_ret_err(&shell);
 }

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/03 16:02:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 20:34:38 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 09:29:46 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	ft_parse_format_fd(int fd, const char *format, va_list ap)
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] != '\0')
-			wrote = ft_print_format_fd(format[++i], ap, fd);
+			wrote = ft_print_format_fd(fd, format[++i], ap);
 		else
 			wrote = write(fd, &format[i], 1);
 		if (wrote == -1)

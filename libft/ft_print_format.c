@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:37:30 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 20:32:39 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 09:28:42 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ static int	ft_parse_format_specifier_fd(int fd, char specifier, va_list ap)
 	if (specifier == 'c')
 		return (ft_print_char_fd(va_arg(ap, int), fd));
 	else if (specifier == 's')
-		return (ft_print_st_fd(va_arg(ap, char *), fd));
+		return (ft_print_str_fd(va_arg(ap, char *), fd));
 	else if (specifier == 'p')
 		return (ft_print_ptr_fd(va_arg(ap, unsigned long long), fd));
 	else if (specifier == 'u')
