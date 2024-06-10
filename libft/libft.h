@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 20:57:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 14:27:02 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,36 +119,36 @@ void	ft_multiple_free_set_null(char ***str);
 /*								FT_PRINT_PTR.C								*/
 /*-------------------------------------------------------------------------*/
 
-int	ft_print_ptr(unsigned long long ptr);
-int	ft_print_ptr_fd(unsigned long long ptr, int fd);
+int		ft_print_ptr(unsigned long long ptr);
+int		ft_print_ptr_fd(unsigned long long ptr, int fd);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_NUM_BASE.C							*/
 /*-------------------------------------------------------------------------*/
 
-int	ft_print_num_base(long long n, int base, char *lst_base);
-int	ft_print_num_base_fd(long long n, int base, char *lst_base, int fd);
+int		ft_print_num_base(long long n, int base, char *lst_base);
+int		ft_print_num_base_fd(long long n, int base, char *lst_base, int fd);
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_CHAR.C								*/
 /*-------------------------------------------------------------------------*/
 
-int	ft_print_char(int c);
-int	ft_print_char_fd(int c, int fd);
+int		ft_print_char(int c);
+int		ft_print_char_fd(int c, int fd);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_STR.C								*/
 /*-------------------------------------------------------------------------*/
 
-int	ft_print_str(char *str);
-int	ft_print_str_fd(char *str, int fd);
+int		ft_print_str(char *str);
+int		ft_print_str_fd(char *str, int fd);
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINTF.C									*/
 /*-------------------------------------------------------------------------*/
 
-int	ft_print_format(char specifier, va_list ap);
-int	ft_print_format_fd(int fd, char specifier, va_list ap);
+int		ft_print_format(char specifier, va_list ap);
+int		ft_print_format_fd(int fd, char specifier, va_list ap);
 
-int	ft_printf(const char *format, ...);
-int	ft_printf_fd(int fd, const char *format, ...);
+int		ft_printf(const char *format, ...);
+int		ft_printf_fd(int fd, const char *format, ...);
 
 #endif

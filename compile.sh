@@ -7,26 +7,26 @@ make
 rm -rf infile outfile
 touch infile
 
+# echo "-------------------------------"
+# ./pipex infile "ls -a" "wc -l" outfile
+# cat outfile
+
+# rm -rf outfile test
+
+# < infile ls -a | wc -l > test
+# cat test
+
+# rm -rf outfile test
+
+# echo "-------------------------------"
+
 echo "-------------------------------"
-./pipex infile "ls -a" "wc -l" outfile
-cat outfile
-
-rm -rf outfile test
-
-< infile ls -a | wc -l > test
-cat test
-
-rm -rf outfile test
-
-echo "-------------------------------"
-
-echo "-------------------------------"
-./pipex infile "nocommand" "wc -l" outfile
+./pipex infile "/bin/ls " "wc -l" outfile
 cat outfile
 
 rm -rf outfile
 
-< infile nocommand | wc -l > test
+< infile /bin/ls | wc -l > test
 cat test
 
 rm -rf outfile test

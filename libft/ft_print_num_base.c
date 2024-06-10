@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/26 08:23:41 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/09 20:29:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 14:39:18 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ int	ft_print_num_base(long long n, int base, char *lst_base)
 	else
 		return (ft_print_char(lst_base[n]));
 }
-
 
 int	ft_print_num_base_fd(long long n, int base, char *lst_base, int fd)
 {

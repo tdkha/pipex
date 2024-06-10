@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:36:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 10:24:14 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 14:41:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,8 @@ static inline void	ft_ret_err(t_shell *shell)
 
 int	main(int ac, char **av, char **envp)
 {
-	t_shell	shell;;
-	
+	t_shell	shell;
+
 	if (ac != 5)
 	{
 		ft_printf_fd(2, "pipex: bad arguments\n");
@@ -33,7 +33,7 @@ int	main(int ac, char **av, char **envp)
 	shell.av = av;
 	shell.envp = envp;
 	shell.error = 0;
-	if (ft_strncmp(av[1],"here_doc", sizeof("heredoc")) != 0)
+	if (ft_strncmp(av[1], "here_doc", sizeof("heredoc")) != 0)
 	{
 		shell.cmd_count = ac - 2;
 	}

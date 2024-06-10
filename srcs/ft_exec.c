@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:35:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 10:19:26 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 14:55:21 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void ft_exec_error(t_shell *shell, char **cmds, char *path)
+void	ft_exec_error(t_shell *shell, char **cmds, char *path)
 {
 	if (!access(cmds[0], F_OK) && !access(cmds[0], X_OK))
 	{
@@ -38,7 +38,7 @@ void ft_exec_error(t_shell *shell, char **cmds, char *path)
 	exit(NOT_EXECUTABLE);
 }
 
-void ft_exec(t_shell *shell, char *cmd)
+void	ft_exec(t_shell *shell, char *cmd)
 {
 	char	*path;
 	char	**cmds;
@@ -46,20 +46,20 @@ void ft_exec(t_shell *shell, char *cmd)
 
 	trimmed_cmd = ft_strtrim(cmd, " ");
 	if (!trimmed_cmd)
-		exit(EXIT_FAILURE);
+		exit(1);
 	cmds = ft_split(trimmed_cmd, ' ');
 	if (!cmds)
 	{
 		free(trimmed_cmd);
-		exit(EXIT_FAILURE);
+		exit(1);
 	}
 	free(trimmed_cmd);
-	path = ft_find_path(cmds[0], shell);
+	path = ft_find_path(cmds, shell);
 	if (!path)
 	{
 		ft_printf_fd(2, "pipex: %s: command not found\n", cmds[0]);
 		ft_multiple_free_set_null(&cmds);
-		exit (CMD_NOT_FOUND);
+		exit (127);
 	}
 	execve(path, cmds, shell->envp);
 	ft_exec_error(shell, cmds, path);
