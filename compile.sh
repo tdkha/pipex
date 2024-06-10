@@ -35,12 +35,12 @@ rm -rf outfile
 
 
 echo "-------------------------------"
-./pipex infile 'sed    "s/And/But/"' 'grep But' outfile
+./pipex infile 'sed "s/And/But/"' 'awk "{count++} END {printf \"count: %i\" , count}"' outfile
 cat outfile
 
 rm -rf outfile
 
-< infile sed "s/And/But/" | grep But > test
+< infile sed "s/And/But/" | awk "{count++} END {printf \"count: %i\" , count}" > test
 cat test
 
 rm -rf outfile test

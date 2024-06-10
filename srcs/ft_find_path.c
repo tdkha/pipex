@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:37:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 14:57:07 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 18:03:52 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,5 +96,6 @@ char	*ft_find_path(char **cmds, t_shell *shell)
 		ft_multiple_free_set_null(&paths);
 		return (NULL);
 	}
+	
 	return (cmd_full_path);
 }

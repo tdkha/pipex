@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:35:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 17:35:15 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 18:05:45 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,13 @@ void	ft_exec(t_shell *shell, char *cmd)
 	if (!trimmed_cmd)
 		exit(1);
 	cmds = ft_split_smart(trimmed_cmd, ' ');
+
+	int i = 0;
+	while(cmds[i])
+	{
+		ft_printf_fd(2, "String is :%s\n", cmds[i]);
+		i++;
+	}
 	if (!cmds)
 	{
 		free(trimmed_cmd);
