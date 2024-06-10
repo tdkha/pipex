@@ -4,8 +4,8 @@ make fclean
 
 make
 
-rm -rf infile outfile
-touch infile
+rm -rf outfile
+# touch infile
 
 # echo "-------------------------------"
 # ./pipex infile "ls -a" "wc -l" outfile

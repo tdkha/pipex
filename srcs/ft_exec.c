@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:35:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 14:55:21 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 17:35:15 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ void	ft_exec(t_shell *shell, char *cmd)
 	trimmed_cmd = ft_strtrim(cmd, " ");
 	if (!trimmed_cmd)
 		exit(1);
-	cmds = ft_split(trimmed_cmd, ' ');
+	cmds = ft_split_smart(trimmed_cmd, ' ');
 	if (!cmds)
 	{
 		free(trimmed_cmd);

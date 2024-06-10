@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 14:27:02 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 17:37:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ void	*ft_memset(void *b, int c, size_t len);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);
 char	*ft_strdup(const char *s);
+
 /*-------------------------------------------------------------------------*/
 /*								STRING										*/
 /*-------------------------------------------------------------------------*/
@@ -60,9 +61,16 @@ char	*ft_strnstr(const char *haystack, const char *needle, size_t len);
 char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strtrim(const char *s1, const char *set);
-char	**ft_split(char const *s, char delimiter);
 int		ft_strcmp(const char *s1, const char *s2);
 int		ft_strncmp(const char *s1, const char *s2, size_t n);
+
+/*-------------------------------------------------------------------------*/
+/*								SPLIT										*/
+/*-------------------------------------------------------------------------*/
+
+void	ft_split_skip_delimiter(char const **s, char delimiter);
+char	**ft_split(char const *s, char delimiter);
+char	**ft_split_smart(const char *s, char delimiter);
 
 /*-------------------------------------------------------------------------*/
 /*								TYPE										*/

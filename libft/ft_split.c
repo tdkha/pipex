@@ -6,17 +6,11 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/19 15:37:12 by ktieu             #+#    #+#             */
-/*   Updated: 2024/04/24 12:08:42 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/10 17:19:28 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
-
-static void	ft_skip_delimiter(char const **s, char delimiter)
-{
-	while (**s && **s == delimiter)
-		(*s)++;
-}
 
 static int	ft_wordcount(char const *s, char delimiter)
 {
@@ -25,7 +19,7 @@ static int	ft_wordcount(char const *s, char delimiter)
 	count = 0;
 	while (*s)
 	{
-		ft_skip_delimiter(&s, delimiter);
+		ft_split_skip_delimiter(&s, delimiter);
 		if (*s)
 		{
 			count++;
@@ -56,7 +50,7 @@ char	**ft_split_helper(char **res, char const *s, char delimiter, size_t i)
 
 	while (*s)
 	{
-		ft_skip_delimiter(&s, delimiter);
+		ft_split_skip_delimiter(&s, delimiter);
 		if (*s)
 		{
 			start = (char *) s;
