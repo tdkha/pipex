@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:18:52 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 14:40:06 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/12 15:11:43 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,4 +33,22 @@ void	ft_multiple_free_set_null(char ***str)
 		free(*str);
 		*str = NULL;
 	}
+}
+
+void	*ft_return_multiple_free_set_null(char ***str)
+{
+	int	i;
+
+	i = 0;
+	if (*str)
+	{
+		while ((*str)[i] != NULL)
+		{
+			free((*str)[i]);
+			i++;
+		}
+		free(*str);
+		*str = NULL;
+	}
+	return (NULL);
 }

@@ -40,8 +40,8 @@ cat outfile
 
 rm -rf outfile
 
-< infile sed "s/And/But/" | awk "{count++} END {printf \"count: %i\" , count}" > test
-cat test
+# < infile sed "s/And/But/" | awk "{count++} END {printf \"count: %i\" , count}" > test
+# cat test
 
 rm -rf outfile test
 
