@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/13 12:08:04 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/13 17:29:31 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,7 +125,7 @@ t_list		*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 
 void		ft_free_set_null(char **str);
 void		ft_multiple_free_set_null(char ***str);
-void		*ft_return_multiple_free_set_null(char ***str);
+char		*ft_return_multiple_free_set_null(char ***str);
 
 /*-------------------------------------------------------------------------*/
 /*								FT_PRINT_PTR.C								*/

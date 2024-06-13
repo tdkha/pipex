@@ -6,11 +6,27 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:35:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/13 13:01:23 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/13 16:49:22 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
+
+static inline void	ft_empty_cmd(char *trimmed_cmd, char *org_cmd)
+{
+	if (trimmed_cmd[0] == ' ' || !trimmed_cmd[0])
+		ft_printf_fd(2, "pipex: %s: command not found\n", org_cmd);
+	else
+		ft_printf_fd(2, "pipex: permission denied:\n");
+	exit (127);
+}
+
+static inline void	ft_no_path(char **cmds)
+{
+	ft_printf_fd(2, "%s: %s: command not found\n", "pipex", cmds[0]);
+	ft_multiple_free_set_null(&cmds);
+	exit (127);
+}
 
 void	ft_exec_error(char **cmds, char *path)
 {
@@ -20,13 +36,13 @@ void	ft_exec_error(char **cmds, char *path)
 			free(path);
 		if (ft_strchr(cmds[0], '/'))
 		{
-			ft_printf_fd(2, "%s: %s: Is a directory\n", "pipex", cmds[0]);
+			ft_printf_fd(2, "pipex: %s: Is a directory\n", cmds[0]);
 			ft_multiple_free_set_null(&cmds);
 			exit (126);
 		}
 		else
 		{
-			ft_printf_fd(2, "%s: %s: command not found\n", "pipex", cmds[0]);
+			ft_printf_fd(2, "pipex: %s: command not found\n", cmds[0]);
 			ft_multiple_free_set_null(&cmds);
 			exit (127);
 		}
@@ -47,6 +63,8 @@ void	ft_exec(t_shell *shell, char *cmd)
 	trimmed_cmd = ft_strtrim(cmd, " ");
 	if (!trimmed_cmd)
 		exit(1);
+	if (!*trimmed_cmd)
+		ft_empty_cmd(trimmed_cmd, cmd);
 	cmds = ft_split_esc(trimmed_cmd, ' ');
 	if (!cmds)
 	{
@@ -56,11 +74,7 @@ void	ft_exec(t_shell *shell, char *cmd)
 	free(trimmed_cmd);
 	path = ft_find_path(cmds, shell);
 	if (!path)
-	{
-		ft_printf_fd(2, "pipex: %s: command not found\n", cmds[0]);
-		ft_multiple_free_set_null(&cmds);
-		exit (127);
-	}
+		ft_no_path(cmds);
 	execve(path, cmds, shell->envp);
 	ft_exec_error(cmds, path);
 }

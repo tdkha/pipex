@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/05 14:18:52 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/12 15:11:43 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/13 17:29:03 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	ft_multiple_free_set_null(char ***str)
 	}
 }
 
-void	*ft_return_multiple_free_set_null(char ***str)
+char	*ft_return_multiple_free_set_null(char ***str)
 {
 	int	i;
 
