@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:36:27 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 14:41:25 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/12 21:00:49 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,10 +33,6 @@ int	main(int ac, char **av, char **envp)
 	shell.av = av;
 	shell.envp = envp;
 	shell.error = 0;
-	if (ft_strncmp(av[1], "here_doc", sizeof("heredoc")) != 0)
-	{
-		shell.cmd_count = ac - 2;
-	}
 	ft_first_child(&shell);
 	ft_ret_err(&shell);
 }

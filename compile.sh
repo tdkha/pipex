@@ -20,6 +20,7 @@ rm -rf outfile
 
 # echo "-------------------------------"
 
+
 # echo "-------------------------------"
 # ./pipex infile "/bin/ls " "wc -l" outfile
 # cat outfile
@@ -34,8 +35,22 @@ rm -rf outfile
 # echo "-------------------------------"
 
 
+# echo "-------------------------------"
+# ./pipex infile 'sed "s/And/But/"' 'awk "{count++} END {printf \"count: %i\" , count}"' outfile
+# cat outfile
+
+# rm -rf outfile
+
+# # < infile sed "s/And/But/" | awk "{count++} END {printf \"count: %i\" , count}" > test
+# # cat test
+
+# rm -rf outfile test
+
+# echo "-------------------------------"
+
+
 echo "-------------------------------"
-./pipex infile 'sed "s/And/But/"' 'awk "{count++} END {printf \"count: %i\" , count}"' outfile
+./pipex here_doc LIMITER "cat" "wc -l" outfile
 cat outfile
 
 rm -rf outfile
@@ -46,6 +61,7 @@ rm -rf outfile
 rm -rf outfile test
 
 echo "-------------------------------"
+
 
 
 make fclean

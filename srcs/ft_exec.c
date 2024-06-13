@@ -6,13 +6,13 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:35:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/12 13:56:24 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/13 13:01:23 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-void	ft_exec_error(t_shell *shell, char **cmds, char *path)
+void	ft_exec_error(char **cmds, char *path)
 {
 	if (!access(cmds[0], F_OK) && !access(cmds[0], X_OK))
 	{
@@ -35,7 +35,7 @@ void	ft_exec_error(t_shell *shell, char **cmds, char *path)
 	if (path)
 		free(path);
 	ft_multiple_free_set_null(&cmds);
-	exit(NOT_EXECUTABLE);
+	exit(FT_NOT_EXECUTABLE);
 }
 
 void	ft_exec(t_shell *shell, char *cmd)
@@ -62,5 +62,5 @@ void	ft_exec(t_shell *shell, char *cmd)
 		exit (127);
 	}
 	execve(path, cmds, shell->envp);
-	ft_exec_error(shell, cmds, path);
+	ft_exec_error(cmds, path);
 }

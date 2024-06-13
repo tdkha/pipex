@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/04/17 13:51:51 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/12 15:05:41 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/13 12:08:04 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@
 # include <stdio.h>
 # include <limits.h>
 # include <stdarg.h>
+# include "gnl/get_next_line.h"
+# include "gnl/get_next_line_bonus.h"
 
 typedef struct s_list
 {
@@ -152,7 +154,7 @@ int			ft_print_char_fd(int c, int fd);
 int			ft_print_str(char *str);
 int			ft_print_str_fd(char *str, int fd);
 /*-------------------------------------------------------------------------*/
-/*								FT_PRINTF.C									*/
+/*								FT_PRINTF									*/
 /*-------------------------------------------------------------------------*/
 
 int			ft_print_format(char specifier, va_list ap);

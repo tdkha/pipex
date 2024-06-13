@@ -1,37 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   test_split.c                                       :+:      :+:    :+:   */
+/*   main_bonus.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/11 09:59:59 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/13 12:09:23 by ktieu            ###   ########.fr       */
+/*   Created: 2024/06/12 19:51:01 by ktieu             #+#    #+#             */
+/*   Updated: 2024/06/12 22:59:19 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/pipex.h"
+#include "./includes/pipex.h"
+
+static inline void	ft_ret_err(t_shell *shell)
+{
+	int	error;
+
+	error = (shell->error & 0xff00) >> 8;
+	exit (error);
+}
 
 int	main(int ac, char **av, char **envp)
 {
-	int		i;
-	int		j;
-	char	**split;
+	t_shell	shell;
 
-	i = 0;
-	j = 0;
-	while (av[i])
+	if (ac < 5)
 	{
-		j = 0;
-		split = ft_split_esc(av[i], ' ');
-		printf("String %d\n", i);
-		while (split[j])
-		{
-			printf("Split: %s\n", split[j]);
-			j++;
-		}
-		printf("---------------------------\n");
-		ft_multiple_free_set_null(&split);
-		i++;
+		ft_printf_fd(2, "pipex: bad arguments\n");
+		exit(EXIT_FAILURE);
 	}
+	shell.ac = ac;
+	shell.av = av;
+	shell.envp = envp;
+	shell.error = 0;
+	if (ft_strncmp(av[1], "here_doc", sizeof("here_doc")) == 0)
+		ft_heredoc(&shell);
+	else
+		ft_first_child(&shell);
+	ft_ret_err(&shell);
 }

@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:37:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/12 15:14:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/13 13:02:14 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,7 @@ static char	**find_env_path(char **paths, char **envp)
 static char	*find_cmd_full_path(
 	char **paths,
 	char *command,
-	char *cmd_full_path,
-	t_shell *shell
+	char *cmd_full_path
 )
 {
 	char	*full_path;
@@ -90,7 +89,7 @@ char	*ft_find_path(char **cmds, t_shell *shell)
 	paths = find_env_path(paths, shell->envp);
 	if (!paths)
 		return (NULL);
-	cmd_full_path = find_cmd_full_path(paths, command, cmd_full_path, shell);
+	cmd_full_path = find_cmd_full_path(paths, command, cmd_full_path);
 	if (!cmd_full_path)
 	{
 		ft_multiple_free_set_null(&paths);

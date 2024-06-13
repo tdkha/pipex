@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 22:11:17 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/10 14:49:47 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/12 21:08:54 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	ft_open_outfile(t_shell *shell, int *fds)
 	{
 		ft_printf_fd(2, "pipex: %s: %s\n",
 			shell->av[shell->ac - 1], strerror(errno));
-		close(fds[INPUT]);
+		close(fds[0]);
 		exit(1);
 	}
 }

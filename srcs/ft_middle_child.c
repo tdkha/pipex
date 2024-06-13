@@ -1,29 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_first_child.c                                   :+:      :+:    :+:   */
+/*   ft_middle_child.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/06/09 20:42:20 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/12 21:03:40 by ktieu            ###   ########.fr       */
+/*   Created: 2024/06/12 22:54:20 by ktieu             #+#    #+#             */
+/*   Updated: 2024/06/13 12:08:51 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../includes/pipex.h"
 
-static void	ft_open_infile(t_shell *shell, int *fds)
-{
-	shell->fd_infile = open(shell->av[1], O_RDONLY);
-	if (shell->fd_infile == -1)
-	{
-		ft_printf_fd(2, "pipex: %s: %s\n", shell->av[1], strerror(errno));
-		close(fds[1]);
-		exit(1);
-	}
-}
-
-static void	ft_first_pipeline(pid_t *pid, int *fds)
+static void	ft_middle_pipeline(pid_t *pid, int *fds, int *prev_fds)
 {
 	if (pipe(fds) == -1)
 	{
@@ -35,27 +24,25 @@ static void	ft_first_pipeline(pid_t *pid, int *fds)
 	{
 		close(fds[0]);
 		close(fds[1]);
+		close(prev_fds[0]);
 		ft_printf_fd(2, "pipex: fork error\n");
 		exit(1);
 	}
 }
 
-void	ft_first_child(t_shell *shell)
+void	ft_middle_child(t_shell *shell, int *prev_fd, int i)
 {
-	int		i;
 	pid_t	pid;
 	int		fds[2];
 
-	i = 2;
-	ft_first_pipeline(&pid, fds);
+	ft_middle_pipeline(&pid, fds, prev_fd);
 	if (pid == 0)
 	{
 		close(fds[0]);
-		ft_open_infile(shell, fds);
 		ft_dup2(
-			shell->fd_infile, STDIN_FILENO,
+			prev_fd[0], STDIN_FILENO,
 			fds[1], STDOUT_FILENO);
-		ft_exec(shell, shell->av[2]);
+		ft_exec(shell, shell->av[i]);
 	}
 	else
 	{
