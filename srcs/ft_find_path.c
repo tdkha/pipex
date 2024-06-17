@@ -88,8 +88,7 @@ char	*ft_find_path(char **cmds, t_shell *shell)
 	cmd_full_path = find_cmd_full_path(paths, command);
 	if (!cmd_full_path)
 	{
-		ft_printf_fd(2, "pipex: %s: command not found\n", command);
-		exit(127);
+		return (NULL);
 	}
 	return (cmd_full_path);
 }

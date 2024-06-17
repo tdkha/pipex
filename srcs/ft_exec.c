@@ -18,12 +18,13 @@ static inline void	ft_empty_cmd(char *trimmed_cmd, char *org_cmd)
 		ft_printf_fd(2, "pipex: %s: command not found\n", org_cmd);
 	else
 		ft_printf_fd(2, "pipex: permission denied:\n");
+	free(trimmed_cmd);
 	exit (127);
 }
 
 static inline void	ft_no_path(char **cmds)
 {
-	ft_printf_fd(2, "%s: %s: command not found\n", "pipex", cmds[0]);
+	ft_printf_fd(2, "pipex: %s: command not found\n", cmds[0]);
 	ft_multiple_free_set_null(&cmds);
 	exit (127);
 }
