@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 20:37:04 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/13 17:29:44 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/19 00:45:07 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,10 @@ static char	*ft_is_valid_path(char **cmds)
 		return (ft_strdup(cmds[0]));
 	else
 	{
-		ft_printf_fd(2, "%s: %s: No such file or directory\n", "pipex", cmds[0]);
+		ft_printf_fd(
+			2,
+			"%s: %s: No such file or directory\n",
+			"pipex", cmds[0]);
 		ft_multiple_free_set_null(&cmds);
 		exit(127);
 	}
@@ -35,7 +38,10 @@ static char	**find_env_path(char **envp, char **cmds)
 		i++;
 	if (!envp[i])
 	{
-		ft_printf_fd(2, "%s: %s: No such file or directory\n", "pipex", cmds[0]);
+		ft_printf_fd(
+			2,
+			"%s: %s: No such file or directory\n",
+			"pipex", cmds[0]);
 		ft_multiple_free_set_null(&cmds);
 		exit(127);
 	}

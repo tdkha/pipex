@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/18 13:18:43 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/18 15:34:20 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/19 00:46:12 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,8 @@ static int	ft_parse_format(const char *format, va_list ap)
 		{
 			free(s.str);
 			return (-1);
-		}i++;
+		}
+		i++;
 	}
 	write(1, s.str, s.index);
 	free(s.str);
@@ -43,6 +44,8 @@ static int	ft_parse_format_fd(int fd, const char *format, va_list ap)
 
 	i = 0;
 	ft_printf_init(&s);
+	if (s.str == NULL)
+		return (-1);
 	while (format[i] != '\0')
 	{
 		if (format[i] == '%' && format[i + 1] != '\0')
@@ -50,10 +53,16 @@ static int	ft_parse_format_fd(int fd, const char *format, va_list ap)
 		else
 			ft_add_to_struct(&s, format[i]);
 		if (s.err == 1)
+		{
+			free(s.str);
 			return (-1);
+		}
 		i++;
 	}
-	write(fd, s.str, s.index);
+	s.write_count = write(fd, s.str, s.index);
+	free(s.str);
+	if (s.write_count != s.index)
+		return (-1);
 	return (s.index);
 }
 
