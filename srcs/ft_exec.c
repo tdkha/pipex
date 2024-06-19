@@ -6,7 +6,7 @@
 /*   By: ktieu <ktieu@student.hive.fi>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/06/09 21:35:22 by ktieu             #+#    #+#             */
-/*   Updated: 2024/06/13 16:49:22 by ktieu            ###   ########.fr       */
+/*   Updated: 2024/06/19 13:38:25 by ktieu            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,6 @@ static inline void	ft_empty_cmd(char *trimmed_cmd, char *org_cmd)
 {
 	if (trimmed_cmd[0] == ' ' || !trimmed_cmd[0])
 		ft_printf_fd(2, "%s: %s: command not found\n", "pipex", org_cmd);
-	else
-		ft_printf_fd(2, "%s: permission denied:\n", "pipex");
 	free(trimmed_cmd);
 	exit (127);
 }
